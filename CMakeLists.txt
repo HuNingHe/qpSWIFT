@@ -15,8 +15,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin/lib)
 
 #### ---- Options ---- ####
 option (QPTESTS "Build Unit Tests" OFF)
-option (QPSHAREDLIB "Build Unit Tests" ON)
-option (QPDEMOS "Build C and C++ Demos" ON)
+option (QPSHAREDLIB "Build Unit Tests" OFF)
+option (QPDEMOS "Build C and C++ Demos" OFF)
 
 
 #### ----- CXX Standard Flags ----- #####
@@ -63,6 +63,7 @@ target_include_directories(qpSWIFT-static PUBLIC
                 "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                 "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/qpSWIFT>"
 )
+target_compile_options(qpSWIFT-static PRIVATE -Wno-format-truncation)
 
 ### --- Create Shared Library
 if(QPSHAREDLIB)
@@ -73,6 +74,7 @@ if(QPSHAREDLIB)
                         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
                         "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}/qpSWIFT>"
 )
+        target_compile_options(qpSWIFT-shared PRIVATE -Wno-format-truncation)
 endif()
 
 
